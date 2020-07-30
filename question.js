@@ -112,7 +112,7 @@ var Question = function (_React$Component) {
 
     _this.restart = function () {
       _this.setState({
-        time: _this.props.duration,
+        time: 120,
         score: 0
       });
       _this.timerID = setInterval(function () {
@@ -132,7 +132,7 @@ var Question = function (_React$Component) {
       unknownValue: 0,
       questionType: 0,
       score: 0,
-      time: _this.props.duration
+      time: 120
     };
     return _this;
   }
@@ -167,8 +167,8 @@ var Question = function (_React$Component) {
     key: "newQuestion",
     value: function newQuestion() {
       var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut];
-      var possibleQuestions = this.props.questions;
-      var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)];
+      console.log(questionList);
+      var questionType = Math.floor(Math.random() * questionList.length);
       this.setState({
         questionType: questionType
       });

@@ -14,113 +14,35 @@
   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 
-  
 
-  <script type="text/javascript">
-    /*
-    $(document).ready(function() {
-
-      function round(num){
-        return +(num.toFixed(2))
-      }
-
-      function newQuestion(){
-        var questionType = Math.floor(Math.random() * 2)
-        if (questionType === 0){
-          //call unknown
-          
-          strikeValue = Math.floor(Math.random() * 80) + 20
-          stockValue = round(Math.random() * 20) - 10 + strikeValue
-          rcValue = round(Math.random() * 0.3)
-          putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2)
-          callValue = round(stockValue - strikeValue + putValue + rcValue)
-          unknownValue = callValue
-          call.innerHTML = "?"
-          stock.innerHTML = stockValue.toFixed(2)
-          strike.innerHTML = strikeValue
-          rc.innerHTML = rcValue.toFixed(2)
-          put.innerHTML = putValue.toFixed(2)
-
-        }
-        else if (questionType === 1){
-          //put unknown
-          strikeValue = Math.floor(Math.random() * 80) + 20
-          stockValue = round(Math.random() * 20) - 10 + strikeValue
-          rcValue = round(Math.random() * 0.3)
-          callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
-          putValue = round(strikeValue - stockValue + callValue - rcValue)
-          unknownValue = putValue
-          put.innerHTML = "?"
-          stock.innerHTML = stockValue.toFixed(2)
-          strike.innerHTML = strikeValue
-          rc.innerHTML = rcValue.toFixed(2)
-          call.innerHTML = callValue.toFixed(2)
-        }
-      }
-
-      var callValue, stockValue, strikeValue, rcValue, putValue, unknownValue;
-      var input = document.getElementById("input")
-      var call = document.getElementById("call")
-      var stock = document.getElementById("stock")
-      var strike = document.getElementById("strike")
-      var rc = document.getElementById("r/c")
-      var scoreValue = 0;
-      var score = document.getElementById("score")
-      newQuestion()
-      console.log(input)
-      input.addEventListener("keyup", function(event) {
-        // Number 13 is the "Enter" key on the keyboard
-        if (event.keyCode === 13) {
-          console.log(parseFloat(input.value))
-          console.log(unknownValue)
-          if (parseFloat(input.value) === unknownValue){
-            scoreValue += 1
-            score.innerHTML = scoreValue
-            input.value = ""
-            newQuestion()
-          }
-          
-        }
-      });
-    });  
-    */
-    
-
-
-
-      
-  
-    
-
-  </script>
+  <style>
+    #welcome {
+  width: 440px;
+  padding: 20px;
+  margin: 0 auto;
+  background-color: #dddddd;
+  overflow: hidden;
+  zoom: 1;
+}
+#welcome input[type="text"] {
+  text-align: right;
+  width: 34px;
+  margin: 0 2px;
+}
+#welcome input[type="submit"] {
+  float: right;
+}
+  </style>
 
   <body>
-    
-
-    <div id="question_container"></div>
     <!--
-    <div class ="row">
-      <div class="col-md-12 text-center" style="margin-top: 300px" >C = <span id="call">0</span></div>
-    </div>
-    <div class ="row">
-      <div class="col-md-12 text-center" >P = <span id="put">0</span></div>
-    </div>
-    <div class ="row">
-      <div class="col-md-12 text-center" >r/c = <span id="r/c">0</span></div>
-    </div>
-    <div class ="row">
-      <div class="col-md-12 text-center" >S = <span id="stock">0</span></div>
-    </div>
-    <div class ="row">
-      <div class="col-md-12 text-center" >K = <span id="strike">0</span></div>
-    </div>
-    <div class ="row">
-      <div class="col-md-12 text-center"><input id="input" type="text" autocomplete="off" ></div>
-    </div>
+    <div id="question_container"></div>
     -->
-  
+
+    <div id="welcome_container"></div>
     
     <script src="question.js"></script>
+    <script src="welcome.js"></script>
 
   </body>
 </html>

@@ -19,7 +19,7 @@ class Question extends React.Component {
       unknownValue: 0, 
       questionType: 0,
       score: 0,
-      time: 120
+      time: this.props.duration
     };
   }
 
@@ -50,8 +50,8 @@ class Question extends React.Component {
 
   newQuestion(){
     var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut]
-    console.log(questionList)
-    var questionType = Math.floor(Math.random() * questionList.length)
+    var possibleQuestions = this.props.questions
+    var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
     this.setState({
       questionType: questionType
     })
@@ -150,7 +150,7 @@ class Question extends React.Component {
 
   restart = () => {
     this.setState({
-      time: 120,
+      time: this.props.duration,
       score: 0
     })
     this.timerID = setInterval(
@@ -228,5 +228,8 @@ class Question extends React.Component {
   }
 }
 
+
+/*
 let domContainer = document.querySelector('#question_container');
 ReactDOM.render(<Question />, domContainer);
+*/

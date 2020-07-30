@@ -47,9 +47,15 @@ class Welcome extends React.Component {
 		event.preventDefault()
 	}
 
+	changeSettings = () => {
+		this.setState({
+			"startGame": false
+		})
+	}
+
 	render() {
 		if (this.state.startGame){
-			return <Question duration={this.state.duration} questions={this.state.questions}/>
+			return <Question duration={this.state.duration} questions={this.state.questions} changeSettings={this.changeSettings}/>
 		}
 		else{
 			return (

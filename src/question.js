@@ -160,6 +160,10 @@ class Question extends React.Component {
     this.newQuestion()
   }
 
+  changeSettings = () => {
+    this.props.changeSettings()
+  }
+
   render() {
     if (this.state.time === 0){
       return (
@@ -168,6 +172,7 @@ class Question extends React.Component {
           Score: {this.state.score}
         </div>
         <button onClick={this.restart}>Restart</button>
+        <button onClick={this.changeSettings}>Change settings</button>
         </div>
       )
     }

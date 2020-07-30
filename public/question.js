@@ -121,6 +121,10 @@ var Question = function (_React$Component) {
       _this.newQuestion();
     };
 
+    _this.changeSettings = function () {
+      _this.props.changeSettings();
+    };
+
     _this.state = {
       call: 0,
       put: 0,
@@ -191,6 +195,11 @@ var Question = function (_React$Component) {
             "button",
             { onClick: this.restart },
             "Restart"
+          ),
+          React.createElement(
+            "button",
+            { onClick: this.changeSettings },
+            "Change settings"
           )
         );
       }

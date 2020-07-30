@@ -16,6 +16,12 @@ var Welcome = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (Welcome.__proto__ || Object.getPrototypeOf(Welcome)).call(this, props));
 
+		_this.changeSettings = function () {
+			_this.setState({
+				"startGame": false
+			});
+		};
+
 		_this.state = {
 			putCall: true,
 			straddle: true,
@@ -66,7 +72,7 @@ var Welcome = function (_React$Component) {
 		key: "render",
 		value: function render() {
 			if (this.state.startGame) {
-				return React.createElement(Question, { duration: this.state.duration, questions: this.state.questions });
+				return React.createElement(Question, { duration: this.state.duration, questions: this.state.questions, changeSettings: this.changeSettings });
 			} else {
 				return React.createElement(
 					"div",

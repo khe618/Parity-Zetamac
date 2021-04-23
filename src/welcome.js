@@ -6,6 +6,7 @@ class Welcome extends React.Component {
 	      putCall: true,
 	      straddle: true,
 	      combo: true,
+	      bwps: true,
 	      duration: 120,
 	      startGame: false,
 	      questions: []
@@ -36,6 +37,12 @@ class Welcome extends React.Component {
 		if (this.state.straddle){
 			questions.push(3)
 			questions.push(4)
+		}
+		if (this.state.bwps){
+			questions.push(5)
+			questions.push(6)
+			questions.push(7)
+			questions.push(8)
 		}
 		if (questions.length > 0){
 			this.setState({
@@ -93,6 +100,16 @@ class Welcome extends React.Component {
 		            
 		          </dt>
 		          <dd>Converting straddle to call or put value</dd>
+		          <dt>
+		            <label>
+		            	B/W and P+S
+		            </label>
+		              <input checked={this.state.bwps} name='bwps' type='checkbox' onChange={this.handleInputChange}>
+		              
+		              </input>
+		            
+		          </dt>
+		          <dd>Converting B/W or P+S to call or put value</dd>
 		        </dl>
 
 		        <p>

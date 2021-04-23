@@ -26,6 +26,7 @@ var Welcome = function (_React$Component) {
 			putCall: true,
 			straddle: true,
 			combo: true,
+			bwps: true,
 			duration: 120,
 			startGame: false,
 			questions: []
@@ -58,6 +59,12 @@ var Welcome = function (_React$Component) {
 			if (this.state.straddle) {
 				questions.push(3);
 				questions.push(4);
+			}
+			if (this.state.bwps) {
+				questions.push(5);
+				questions.push(6);
+				questions.push(7);
+				questions.push(8);
 			}
 			if (questions.length > 0) {
 				this.setState({
@@ -132,6 +139,21 @@ var Welcome = function (_React$Component) {
 								"dd",
 								null,
 								"Converting straddle to call or put value"
+							),
+							React.createElement(
+								"dt",
+								null,
+								React.createElement(
+									"label",
+									null,
+									"B/W and P+S"
+								),
+								React.createElement("input", { checked: this.state.bwps, name: "bwps", type: "checkbox", onChange: this.handleInputChange })
+							),
+							React.createElement(
+								"dd",
+								null,
+								"Converting B/W or P+S to call or put value"
 							)
 						),
 						React.createElement(

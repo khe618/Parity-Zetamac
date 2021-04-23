@@ -15,7 +15,9 @@ class Question extends React.Component {
       stock: 0, 
       strike: 0,
       combo: 0,
-      straddle: 0, 
+      straddle: 0,
+      bw: 0,
+      ps: 0, 
       unknownValue: 0, 
       questionType: 0,
       score: 0,
@@ -49,7 +51,8 @@ class Question extends React.Component {
   }
 
   newQuestion(){
-    var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut]
+    var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut,
+    this.bwToCall, this.bwToPut, this.psToCall, this.psToPut]
     var possibleQuestions = this.props.questions
     var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
     this.setState({
@@ -138,6 +141,70 @@ class Question extends React.Component {
     })
   }
 
+  bwToCall = () => {
+    var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
+    var stockValue = round(Math.random() * 20) - 10 + strikeValue
+    var rcValue = round(Math.random() * 0.3)
+    var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
+    var bwValue = callValue - (stockValue - strikeValue) 
+    this.setState({
+      unknownValue: callValue,
+      stock: stockValue.toFixed(2),
+      strike: strikeValue,
+      rc: rcValue.toFixed(2),
+      bw: bwValue.toFixed(2),
+      call: "?"
+    })
+  }
+
+  bwToPut = () => {
+    var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
+    var stockValue = round(Math.random() * 20) - 10 + strikeValue
+    var rcValue = round(Math.random() * 0.3)
+    var putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2)
+    var bwValue = putValue  + rcValue 
+    this.setState({
+      unknownValue: putValue,
+      stock: stockValue.toFixed(2),
+      strike: strikeValue,
+      rc: rcValue.toFixed(2),
+      bw: bwValue.toFixed(2),
+      put: "?"
+    })
+  }
+
+  psToCall = () => {
+    var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
+    var stockValue = round(Math.random() * 20) - 10 + strikeValue
+    var rcValue = round(Math.random() * 0.3)
+    var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
+    var psValue = callValue - rcValue
+    this.setState({
+      unknownValue: callValue,
+      stock: stockValue.toFixed(2),
+      strike: strikeValue,
+      rc: rcValue.toFixed(2),
+      ps: psValue.toFixed(2),
+      call: "?"
+    })
+  }
+
+  psToPut = () => {
+    var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
+    var stockValue = round(Math.random() * 20) - 10 + strikeValue
+    var rcValue = round(Math.random() * 0.3)
+    var putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2)
+    var psValue = putValue - (strikeValue - stockValue)
+    this.setState({
+      unknownValue: putValue,
+      stock: stockValue.toFixed(2),
+      strike: strikeValue,
+      rc: rcValue.toFixed(2),
+      ps: psValue.toFixed(2),
+      put: "?"
+    })
+  }
+
   validate = (event) => {
       if (parseFloat(event.target.value) === this.state.unknownValue){
         this.setState({
@@ -185,7 +252,7 @@ class Question extends React.Component {
     </div>
     <div style={{marginTop: 200, fontSize: 24}}>
       { 
-        (this.state.questionType <= 1 || this.state.questionType === 3) &&
+        ([0, 1, 3, 5, 7].includes(this.state.questionType)) &&
         <div>
           <div className ="row">
             <div className="col-md-12 text-center" >C = {this.state.call}</div>
@@ -193,7 +260,7 @@ class Question extends React.Component {
         </div>
       }
       { 
-        (this.state.questionType <= 1 || this.state.questionType === 4) &&
+        ([0, 1, 4, 6, 8].includes(this.state.questionType)) &&
         <div>
           <div className ="row">
             <div className ="col-md-12 text-center" >P = {this.state.put}</div>
@@ -212,8 +279,18 @@ class Question extends React.Component {
           <div className="col-md-12 text-center" >Straddle = {this.state.straddle}</div>
         </div>
       }
-
-      
+      {
+        (this.state.questionType === 5 || this.state.questionType === 6) &&
+        <div className ="row">
+          <div className="col-md-12 text-center" >B/W = {this.state.bw}</div>
+        </div>
+      }
+      {
+        (this.state.questionType === 7 || this.state.questionType === 8) &&
+        <div className ="row">
+          <div className="col-md-12 text-center" >P+S = {this.state.ps}</div>
+        </div>
+      }
       
       <div className ="row">
         <div className ="col-md-12 text-center" >r/c = {this.state.rc}</div>

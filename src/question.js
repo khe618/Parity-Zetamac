@@ -51,8 +51,8 @@ class Question extends React.Component {
   }
 
   newQuestion(){
-    var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut,
-    this.bwToCall, this.bwToPut, this.psToCall, this.psToPut]
+    var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut, 
+    this.callToStraddle, this.putToStraddle, this.bwToCall, this.bwToPut, this.psToCall, this.psToPut]
     var possibleQuestions = this.props.questions
     var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
     this.setState({
@@ -65,7 +65,7 @@ class Question extends React.Component {
     var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
     var stockValue = round(Math.random() * 20) - 10 + strikeValue
     var rcValue = round(Math.random() * 0.3)
-    var putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2)
+    var putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2 )
     var callValue = round(stockValue - strikeValue + putValue + rcValue)
     this.setState({
       unknownValue: callValue,
@@ -138,6 +138,40 @@ class Question extends React.Component {
       strike: strikeValue,
       rc: rcValue.toFixed(2),
       put: "?"
+    })
+  }
+
+  callToStraddle = () => {
+    var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
+    var stockValue = round(Math.random() * 20) - 10 + strikeValue
+    var rcValue = round(Math.random() * 0.3)
+    var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
+    var putValue = round(strikeValue - stockValue + callValue - rcValue)
+    var straddleValue = callValue + putValue
+    this.setState({
+      unknownValue: straddleValue,
+      straddle: "?",
+      stock: stockValue.toFixed(2),
+      strike: strikeValue,
+      rc: rcValue.toFixed(2),
+      call: callValue
+    })
+  }
+
+  putToStraddle = () => {
+    var strikeValue = Math.floor(Math.random() * 16) * 5 + 10
+    var stockValue = round(Math.random() * 20) - 10 + strikeValue
+    var rcValue = round(Math.random() * 0.3)
+    var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
+    var putValue = round(strikeValue - stockValue + callValue - rcValue)
+    var straddleValue = callValue + putValue
+    this.setState({
+      unknownValue: straddleValue,
+      straddle: "?",
+      stock: stockValue.toFixed(2),
+      strike: strikeValue,
+      rc: rcValue.toFixed(2),
+      put: putValue
     })
   }
 
@@ -252,7 +286,7 @@ class Question extends React.Component {
     </div>
     <div style={{marginTop: 200, fontSize: 24}}>
       { 
-        ([0, 1, 3, 5, 7].includes(this.state.questionType)) &&
+        ([0, 1, 3, 5, 7, 9].includes(this.state.questionType)) &&
         <div>
           <div className ="row">
             <div className="col-md-12 text-center" >C = {this.state.call}</div>
@@ -260,7 +294,7 @@ class Question extends React.Component {
         </div>
       }
       { 
-        ([0, 1, 4, 6, 8].includes(this.state.questionType)) &&
+        ([0, 1, 4, 6, 8, 10].includes(this.state.questionType)) &&
         <div>
           <div className ="row">
             <div className ="col-md-12 text-center" >P = {this.state.put}</div>
@@ -274,19 +308,19 @@ class Question extends React.Component {
         </div>
       }
       {
-        (this.state.questionType === 3 || this.state.questionType === 4) &&
+        (this.state.questionType >= 3 && this.state.questionType <= 6) &&
         <div className ="row">
           <div className="col-md-12 text-center" >Straddle = {this.state.straddle}</div>
         </div>
       }
       {
-        (this.state.questionType === 5 || this.state.questionType === 6) &&
+        (this.state.questionType === 7 || this.state.questionType === 8) &&
         <div className ="row">
           <div className="col-md-12 text-center" >B/W = {this.state.bw}</div>
         </div>
       }
       {
-        (this.state.questionType === 7 || this.state.questionType === 8) &&
+        (this.state.questionType === 9 || this.state.questionType === 10) &&
         <div className ="row">
           <div className="col-md-12 text-center" >P+S = {this.state.ps}</div>
         </div>

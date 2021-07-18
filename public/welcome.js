@@ -59,12 +59,14 @@ var Welcome = function (_React$Component) {
 			if (this.state.straddle) {
 				questions.push(3);
 				questions.push(4);
-			}
-			if (this.state.bwps) {
 				questions.push(5);
 				questions.push(6);
+			}
+			if (this.state.bwps) {
 				questions.push(7);
 				questions.push(8);
+				questions.push(9);
+				questions.push(10);
 			}
 			if (questions.length > 0) {
 				this.setState({
@@ -138,7 +140,7 @@ var Welcome = function (_React$Component) {
 							React.createElement(
 								"dd",
 								null,
-								"Converting straddle to call or put value"
+								"Converting straddle to call or put value and vice versa"
 							),
 							React.createElement(
 								"dt",

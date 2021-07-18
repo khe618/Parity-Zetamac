@@ -100,6 +100,40 @@ var Question = function (_React$Component) {
       });
     };
 
+    _this.callToStraddle = function () {
+      var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
+      var stockValue = round(Math.random() * 20) - 10 + strikeValue;
+      var rcValue = round(Math.random() * 0.3);
+      var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2);
+      var putValue = round(strikeValue - stockValue + callValue - rcValue);
+      var straddleValue = callValue + putValue;
+      _this.setState({
+        unknownValue: straddleValue,
+        straddle: "?",
+        stock: stockValue.toFixed(2),
+        strike: strikeValue,
+        rc: rcValue.toFixed(2),
+        call: callValue
+      });
+    };
+
+    _this.putToStraddle = function () {
+      var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
+      var stockValue = round(Math.random() * 20) - 10 + strikeValue;
+      var rcValue = round(Math.random() * 0.3);
+      var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2);
+      var putValue = round(strikeValue - stockValue + callValue - rcValue);
+      var straddleValue = callValue + putValue;
+      _this.setState({
+        unknownValue: straddleValue,
+        straddle: "?",
+        stock: stockValue.toFixed(2),
+        strike: strikeValue,
+        rc: rcValue.toFixed(2),
+        put: putValue
+      });
+    };
+
     _this.bwToCall = function () {
       var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
       var stockValue = round(Math.random() * 20) - 10 + strikeValue;
@@ -236,7 +270,7 @@ var Question = function (_React$Component) {
   }, {
     key: "newQuestion",
     value: function newQuestion() {
-      var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut, this.bwToCall, this.bwToPut, this.psToCall, this.psToPut];
+      var questionList = [this.missingCallQuestion, this.missingPutQuestion, this.missingStockQuestion, this.straddleToCall, this.straddleToPut, this.callToStraddle, this.putToStraddle, this.bwToCall, this.bwToPut, this.psToCall, this.psToPut];
       var possibleQuestions = this.props.questions;
       var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)];
       this.setState({
@@ -300,7 +334,7 @@ var Question = function (_React$Component) {
         React.createElement(
           "div",
           { style: { marginTop: 200, fontSize: 24 } },
-          [0, 1, 3, 5, 7].includes(this.state.questionType) && React.createElement(
+          [0, 1, 3, 5, 7, 9].includes(this.state.questionType) && React.createElement(
             "div",
             null,
             React.createElement(
@@ -314,7 +348,7 @@ var Question = function (_React$Component) {
               )
             )
           ),
-          [0, 1, 4, 6, 8].includes(this.state.questionType) && React.createElement(
+          [0, 1, 4, 6, 8, 10].includes(this.state.questionType) && React.createElement(
             "div",
             null,
             React.createElement(
@@ -338,7 +372,7 @@ var Question = function (_React$Component) {
               this.state.combo
             )
           ),
-          (this.state.questionType === 3 || this.state.questionType === 4) && React.createElement(
+          this.state.questionType >= 3 && this.state.questionType <= 6 && React.createElement(
             "div",
             { className: "row" },
             React.createElement(
@@ -348,7 +382,7 @@ var Question = function (_React$Component) {
               this.state.straddle
             )
           ),
-          (this.state.questionType === 5 || this.state.questionType === 6) && React.createElement(
+          (this.state.questionType === 7 || this.state.questionType === 8) && React.createElement(
             "div",
             { className: "row" },
             React.createElement(
@@ -358,7 +392,7 @@ var Question = function (_React$Component) {
               this.state.bw
             )
           ),
-          (this.state.questionType === 7 || this.state.questionType === 8) && React.createElement(
+          (this.state.questionType === 9 || this.state.questionType === 10) && React.createElement(
             "div",
             { className: "row" },
             React.createElement(

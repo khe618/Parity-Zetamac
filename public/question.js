@@ -106,7 +106,7 @@ var Question = function (_React$Component) {
       var rcValue = round(Math.random() * 0.3);
       var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2);
       var putValue = round(strikeValue - stockValue + callValue - rcValue);
-      var straddleValue = callValue + putValue;
+      var straddleValue = round(callValue + putValue);
       _this.setState({
         unknownValue: straddleValue,
         straddle: "?",
@@ -123,7 +123,7 @@ var Question = function (_React$Component) {
       var rcValue = round(Math.random() * 0.3);
       var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2);
       var putValue = round(strikeValue - stockValue + callValue - rcValue);
-      var straddleValue = callValue + putValue;
+      var straddleValue = round(callValue + putValue);
       _this.setState({
         unknownValue: straddleValue,
         straddle: "?",
@@ -208,10 +208,17 @@ var Question = function (_React$Component) {
       }
     };
 
+    _this.showAnswer = function (event) {
+      _this.setState({
+        hideAnswer: false
+      });
+    };
+
     _this.restart = function () {
       _this.setState({
         time: _this.props.duration,
-        score: 0
+        score: 0,
+        hideAnswer: true
       });
       _this.timerID = setInterval(function () {
         return _this.tick();
@@ -236,6 +243,7 @@ var Question = function (_React$Component) {
       unknownValue: 0,
       questionType: 0,
       score: 0,
+      hideAnswer: true,
       time: _this.props.duration
     };
     return _this;
@@ -274,7 +282,8 @@ var Question = function (_React$Component) {
       var possibleQuestions = this.props.questions;
       var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)];
       this.setState({
-        questionType: questionType
+        questionType: questionType,
+        hideAnswer: true
       });
       questionList[questionType]();
     }
@@ -439,6 +448,29 @@ var Question = function (_React$Component) {
               "div",
               { className: "col-md-12 text-center" },
               React.createElement("input", { id: "input", type: "text", autoComplete: "off", onKeyUp: this.validate })
+            )
+          ),
+          React.createElement("br", null),
+          React.createElement(
+            "div",
+            { className: "row" },
+            React.createElement(
+              "div",
+              { className: "col-md-12 text-center" },
+              React.createElement(
+                "button",
+                { onClick: this.showAnswer },
+                "Show Answer"
+              )
+            )
+          ),
+          !this.state.hideAnswer && React.createElement(
+            "div",
+            { className: "row" },
+            React.createElement(
+              "div",
+              { className: "col-md-12 text-center" },
+              this.state.unknownValue
             )
           )
         )

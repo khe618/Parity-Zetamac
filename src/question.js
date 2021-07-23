@@ -21,6 +21,7 @@ class Question extends React.Component {
       unknownValue: 0, 
       questionType: 0,
       score: 0,
+      hideAnswer: true,
       time: this.props.duration
     };
   }
@@ -56,7 +57,8 @@ class Question extends React.Component {
     var possibleQuestions = this.props.questions
     var questionType = possibleQuestions[Math.floor(Math.random() * possibleQuestions.length)]
     this.setState({
-      questionType: questionType
+      questionType: questionType,
+      hideAnswer: true
     })
     questionList[questionType]()
   }
@@ -147,7 +149,7 @@ class Question extends React.Component {
     var rcValue = round(Math.random() * 0.3)
     var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
     var putValue = round(strikeValue - stockValue + callValue - rcValue)
-    var straddleValue = callValue + putValue
+    var straddleValue = round(callValue + putValue)
     this.setState({
       unknownValue: straddleValue,
       straddle: "?",
@@ -164,7 +166,7 @@ class Question extends React.Component {
     var rcValue = round(Math.random() * 0.3)
     var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2)
     var putValue = round(strikeValue - stockValue + callValue - rcValue)
-    var straddleValue = callValue + putValue
+    var straddleValue = round(callValue + putValue)
     this.setState({
       unknownValue: straddleValue,
       straddle: "?",
@@ -249,10 +251,17 @@ class Question extends React.Component {
       }
   }
 
+  showAnswer = (event) => {
+    this.setState({
+      hideAnswer: false
+    })
+  }
+
   restart = () => {
     this.setState({
       time: this.props.duration,
-      score: 0
+      score: 0,
+      hideAnswer: true
     })
     this.timerID = setInterval(
       () => this.tick(),
@@ -338,6 +347,17 @@ class Question extends React.Component {
       <div className ="row">
         <div className ="col-md-12 text-center"><input id="input" type="text" autoComplete="off" onKeyUp={this.validate}></input></div>
       </div>
+      <br/>
+      <div className="row">
+        <div className ="col-md-12 text-center"><button onClick={this.showAnswer}>Show Answer</button></div>
+      </div>
+      {
+        !this.state.hideAnswer &&
+        <div className="row">
+          <div className ="col-md-12 text-center">{this.state.unknownValue}</div>
+        </div>
+      }
+      
     </div>
     </div>
     );

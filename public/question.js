@@ -21,11 +21,15 @@ var Question = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Question.__proto__ || Object.getPrototypeOf(Question)).call(this, props));
 
     _this.missingCallQuestion = function () {
-      var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
-      var stockValue = round(Math.random() * 20) - 10 + strikeValue;
-      var rcValue = round(Math.random() * 0.3);
-      var putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2);
-      var callValue = round(stockValue - strikeValue + putValue + rcValue);
+      var callValue = -1;
+      while (callValue < 0) {
+        var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
+        var stockValue = round(Math.random() * 20) - 10 + strikeValue;
+        var rcValue = round(Math.random() * 0.3);
+        var putValue = round(Math.max(0, strikeValue - stockValue - rcValue) + Math.random() * 2);
+        var callValue = round(stockValue - strikeValue + putValue + rcValue);
+      }
+
       _this.setState({
         unknownValue: callValue,
         call: "?",
@@ -37,11 +41,15 @@ var Question = function (_React$Component) {
     };
 
     _this.missingPutQuestion = function () {
-      var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
-      var stockValue = round(Math.random() * 20) - 10 + strikeValue;
-      var rcValue = round(Math.random() * 0.3);
-      var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2);
-      var putValue = round(strikeValue - stockValue + callValue - rcValue);
+      var putValue = -1;
+      while (putValue < 0) {
+        var strikeValue = Math.floor(Math.random() * 16) * 5 + 10;
+        var stockValue = round(Math.random() * 20) - 10 + strikeValue;
+        var rcValue = round(Math.random() * 0.3);
+        var callValue = round(Math.max(0, stockValue - strikeValue + rcValue) + Math.random() * 2);
+        var putValue = round(strikeValue - stockValue + callValue - rcValue);
+      }
+
       _this.setState({
         unknownValue: putValue,
         call: callValue.toFixed(2),
